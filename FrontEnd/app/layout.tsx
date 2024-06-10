@@ -6,8 +6,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Dositio",
-  description: "My Task Manager",
+  title: "My films",
+  description: "My Film Manager",
 };
 
 const RootLayout = ({
