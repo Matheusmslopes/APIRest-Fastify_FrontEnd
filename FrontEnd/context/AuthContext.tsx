@@ -28,7 +28,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
     async function login({ username, password }: SignIdData) {
         try {
-            const { 'x-access-token': token } = await request<UserAuthentication>('http://127.0.0.1:3000/auth', {
+            const { 'x-access-token': token } = await request<UserAuthentication>('http://127.0.0.1:3000/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
                 maxAge: 60 * 60 * 1,
             });
 
-            router.push('/product');
+            router.push('/movie');
         } catch (error) {
             setAuthError('Ocorreu um erro ao tentar fazer login.');
         }
