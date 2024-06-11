@@ -7,6 +7,7 @@ import autoload from '@fastify/autoload';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import cors from '@fastify/cors';
 
 dotenv.config();
 
@@ -24,6 +25,11 @@ const __dirname = path.dirname(__filename);
 
 export async function build(opts) {
     const app = fastify(opts);
+
+    await app.register(cors, { 
+        origin: true, 
+        methods: ['GET', 'POST', 'PUT', 'DELETE']
+    });
 
     await app.register(jwt, {
         secret: opts.jwt_secret
