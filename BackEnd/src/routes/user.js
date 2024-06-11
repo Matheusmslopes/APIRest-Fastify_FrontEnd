@@ -9,18 +9,18 @@ export default async function user(app, options) {
                 type: 'object',
                 properties: {
                     _id: { type: 'string' },
-                    name: { type: 'string' },
+                    username: { type: 'string' },
                     password: { type: 'string' }
                 },
-                required: ['name', 'password']
+                required: ['username', 'password']
             }
         }
     }, async (req, rep) => {
-        let name = req.body.name;
+        let name = req.body.username;
 
         let jwtToken = app.jwt.sign(req.body);
 
-        await users.insertOne({ name: name, jwtToken: jwtToken });
+        await users.insertOne({ username: name, jwtToken: jwtToken });
 
         return rep.code(201).send({
             "x-access-token": jwtToken
@@ -33,11 +33,11 @@ export default async function user(app, options) {
                 type: 'object',
                 properties: {
                     id: { type: 'integer' },
-                    name: { type: 'string' },
+                    username: { type: 'string' },
                     password: { type: 'string' },
                     isAdmin: { type: 'boolean' }
                 },
-                required: ['name', 'password', 'isAdmin']
+                required: ['username', 'password', 'isAdmin']
             }
         },
         config: {
