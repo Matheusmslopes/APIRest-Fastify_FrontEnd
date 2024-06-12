@@ -28,7 +28,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
     async function login({ username, password }: SignIdData) {
         try {
-            const { 'x-access-token': token } = await request<UserAuthentication>('http://127.0.0.1:3000/register', {
+            const { 'x-access-token': token } = await request<UserAuthentication>('http://127.0.0.1:3000/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
