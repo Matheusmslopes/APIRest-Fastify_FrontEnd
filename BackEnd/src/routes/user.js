@@ -1,5 +1,7 @@
 /**@type{import('fastify').FastifyPluginAsync<>} */
 
+import { USER_NOT_FOUND } from '../libs/error.js';
+
 export default async function user(app, options) {
     const users = app.mongo.db.collection('users');
 
@@ -16,15 +18,14 @@ export default async function user(app, options) {
             }
         }
     }, async (req, rep) => {
-        let name = req.body.username;
+        let user = req.body;
 
-        let jwtToken = app.jwt.sign(req.body);
+        let result = await users.count({username: user.username})
+        if(result <= 0) throw new USER_ALREADY_EXISTS();
 
-        await users.insertOne({ username: name, jwtToken: jwtToken });
+        await users.insertOne({ username: username, password: password });
 
-        return rep.code(201).send({
-            "x-access-token": jwtToken
-        });
+        return;
     });
 
     app.put('/register/:id', {
@@ -63,4 +64,29 @@ export default async function user(app, options) {
             "admin-token": adminToken
         });
     });
+
+    app.post('/login', {
+        schema: {
+            body: {
+                type: 'object',
+                properties: {
+                    _id: { type: 'string' },
+                    username: { type: 'string' },
+                    password: { type: 'string' }
+                },
+                required: ['username', 'password']
+            }
+        }
+    }, async (req, rep) => {
+        let user = req.body;
+        let jwtToken = app.jwt.sign(req.body);
+        
+        let result = await users.count({username: user.username})
+        if(result <= 0) throw new USER_NOT_FOUND();
+
+        return rep.code(200).send({
+            "x-access-token": jwtToken
+        });
+    });
 }
+
