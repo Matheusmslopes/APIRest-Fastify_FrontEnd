@@ -13,10 +13,10 @@ const Login = () => {
     }
 
     return (
-        <div className="flex justify-center items-center h-screen">
-            <div className="w-full max-w-md p-6 bg-gray-100 rounded-lg shadow-md">
+        <div className="flex justify-center items-center h-screen bg-[#3f3c37]">
+            <div className="w-full max-w-md p-6 bg-[#201F1B] rounded-lg shadow-md">
                 <form className="flex flex-col" onSubmit={handleSubmit(handleLogin)}>
-                    <label htmlFor="username" className="mb-2">Usuário:</label>
+                    <label htmlFor="username" className="mb-2 text-[#ffffff] ">Usuário:</label>
                     <input
                         {...register('username')}
                         type="text"
@@ -25,7 +25,7 @@ const Login = () => {
                         className="px-3 py-2 border rounded-md mb-4"
                         placeholder="username"
                     />
-                    <label htmlFor="password" className="mb-2">Senha:</label>
+                    <label htmlFor="password" className="mb-2 text-white ">Senha:</label>
                     <input
                         {...register('password')}
                         type="password"
@@ -37,7 +37,7 @@ const Login = () => {
                     <input
                         type="submit"
                         value="Acessar"
-                        className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 cursor-pointer"
+                        className="bg-[#ff5e1e] text-white py-2 px-4 rounded-md hover:bg-[#ff8052] cursor-pointer"
                     />
                 </form>
                 {/* Exibe erro de autenticação */}

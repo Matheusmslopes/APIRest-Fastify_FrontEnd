@@ -49,23 +49,23 @@ const Movies = () => {
     : movieList.filter(movie => movie.genre_id === selectedGenre);
 
   return (
-    <main className="flex flex-col items-center p-4 bg-gray-100 min-h-screen">
+    <main className="flex flex-col items-center p-4 bg-[#3f3c37] min-h-screen">
     <div id="filters" className="mb-4">
-      <button onClick={() => filterMovies('all')} className="bg-blue-500 text-white py-2 px-4 m-2 rounded hover:bg-blue-700">Todos</button>
+      <button onClick={() => filterMovies('all')} className="bg-[#ff5e1e] text-white py-2 px-4 m-2 rounded hover:bg-[#ff8052]">Todos</button>
       {genreList.map(genre => (
         <button 
           key={genre._id} 
           onClick={() => filterMovies(genre._id)} 
-          className="bg-blue-500 text-white py-2 px-4 m-2 rounded hover:bg-blue-700">
+          className="bg-[#ff5e1e] text-white py-2 px-4 m-2 rounded hover:bg-[#ff8052]">
           {genre.style}
         </button>
       ))}
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
       {filteredMovies.map(({ _id, title, synopsis }) => (
-        <div key={_id} className="bg-white border border-gray-300 rounded p-4 shadow-md">
-          <p className="text-xl font-semibold mb-2">{title}</p>
-          <p className="text-gray-600">Sinopse: {synopsis}</p>
+        <div key={_id} className="bg-[#201f1b] border border-[#201f1b] rounded p-4 shadow-md">
+          <p className="text-xl font-semibold mb-2 text-[#ffffff]">{title}</p>
+          <p className="text-[#ccc6ba]">Sinopse: {synopsis}</p>
         </div>
       ))}
     </div>
