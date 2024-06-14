@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { MovieContext, Movie } from "@/context/MovieContext";
+import Link from 'next/link';
 
 const InsertMovieFunction = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<Movie>();
@@ -24,7 +25,7 @@ const InsertMovieFunction = () => {
     }
 
     return (
-        <div className="flex justify-center items-center h-screen bg-[#3f3c37]">
+        <div className="flex flex-col justify-center items-center h-screen bg-[#3f3c37]">
             <div className="w-full max-w-md p-6 bg-[#201F1B] rounded-lg shadow-md">
                 <form className="flex flex-col" onSubmit={handleSubmit(handleMovie)}>
                     <label htmlFor="title" className="mb-2 text-[#ffffff]">Título:</label>
@@ -90,6 +91,11 @@ const InsertMovieFunction = () => {
                 </form>
                 {successMessage && <p className="text-green-500 mt-2">{successMessage}</p>}
                 {movieError && <p className="text-red-500 mt-2">{movieError}</p>}
+            </div>
+            <div className="fixed bottom-4 left-4">
+                <Link href="/movie">
+                    <p className='inline-block px-4 py-2 rounded bg-[#ff5e1e] font-bold text-[#ffffff] cursor-pointer'>Voltar</p>
+                </Link>
             </div>
         </div>
     );
