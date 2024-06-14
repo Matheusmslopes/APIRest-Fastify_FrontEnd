@@ -3,6 +3,7 @@ import MovieProvider from "@/context/MovieContext";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import GenreProvider from "@/context/GenreContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,9 @@ const RootLayout = ({
         <body className={`bg-slate-100 ${inter.className}`}>
           <AuthProvider>
             <MovieProvider>
+              <GenreProvider>
               {children}
+              </GenreProvider>
             </MovieProvider>
           </AuthProvider>
         </body>
