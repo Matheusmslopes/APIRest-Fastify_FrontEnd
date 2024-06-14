@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { AuthContext } from "@/context/AuthContext";
+import { useContext } from "react";
 
 interface Movie {
   _id: string;
@@ -21,6 +23,7 @@ const Movies = () => {
   const[genreList, setGenreList] = useState<Genre[]>([]);
   const[isLoading, setLoading] = useState(true);
   const[selectedGenre, setSelectedGenre] = useState<string>('all');
+  const { isAuthenticated, isAdmin } = useContext(AuthContext);
 
   useEffect(() => {
     fetch('http://127.0.0.1:3000/movies')
@@ -71,12 +74,12 @@ const Movies = () => {
       ))}
     </div>
     <div className="flex space-x-4 mt-4">
-      <Link href="/registerMovie">
-        <p className='inline-block px-4 py-2 rounded bg-[#ff5e1e] font-bold text-[#ffffff] cursor-pointer'>Cadastrar Filme</p>
-      </Link>
-      <Link href="/registerGenre">
-        <p className='inline-block px-4 py-2 rounded bg-[#ff5e1e] font-bold text-[#ffffff] cursor-pointer'>Cadastrar Gênero</p>
-      </Link>
+      {isAuthenticated && isAdmin
+              ? <Link href={'/registerMovie'} className="inline-block px-4 py-2 rounded bg-[#ff5e1e] font-bold text-[#ffffff] cursor-pointer">Cadastrar Filmes</Link>
+              : <div></div>}
+      {isAuthenticated && isAdmin
+              ? <Link href={'/registerGenre'} className="inline-block px-4 py-2 rounded bg-[#ff5e1e] font-bold text-[#ffffff] cursor-pointer">Cadastrar Gêneros</Link>
+              : <div></div>}
     </div>
   </main>
   );
