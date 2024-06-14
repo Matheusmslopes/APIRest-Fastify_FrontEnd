@@ -3,14 +3,17 @@
 import { useContext } from "react";
 import { useForm } from 'react-hook-form';
 import { MovieContext, Movie } from "@/context/MovieContext";
+import { useRouter } from "next/navigation";
 
 const InsertMovieFunction = () => {
     const { register, handleSubmit } = useForm<Movie>();
     const movieContext = useContext(MovieContext);
     const { insertMovie, movieError } = movieContext;
+    const router = useRouter();  
 
     const handleMovie = (data: Movie) => {
         insertMovie(data);
+        router.push('/movie');
     }
 
     return (
