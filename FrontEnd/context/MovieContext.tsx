@@ -39,9 +39,9 @@ export default function MovieProvider({ children }: { children: React.ReactNode 
                     referrerPolicy: 'no-referrer',
                     cache: 'no-store'
                 });
-                console.log('Response:', response); // Log the response for debugging
+                console.log('Response:', response); 
             } catch (error) {
-                console.error('Insert Movie Error:', error); // Log any errors
+                console.error('Insert Movie Error:', error);
             }
         }
     
