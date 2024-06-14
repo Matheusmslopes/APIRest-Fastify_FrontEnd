@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 interface Movie {
@@ -69,6 +70,9 @@ const Movies = () => {
         </div>
       ))}
     </div>
+    <Link href="/registerMovie">
+      <p className='inline-block px-4 py-2 rounded bg-[#ff5e1e] font-bold text-[#ffffff] cursor-pointer'>Cadastrar Filme</p>
+    </Link>
   </main>
   );
 };
