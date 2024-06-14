@@ -1,19 +1,26 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { MovieContext, Movie } from "@/context/MovieContext";
-import { useRouter } from "next/navigation";
 
 const InsertMovieFunction = () => {
-    const { register, handleSubmit } = useForm<Movie>();
+    const { register, handleSubmit, formState: { errors } } = useForm<Movie>();
     const movieContext = useContext(MovieContext);
     const { insertMovie, movieError } = movieContext;
-    const router = useRouter();  
+    const router = useRouter();
+    
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-    const handleMovie = (data: Movie) => {
-        insertMovie(data);
-        router.push('/movie');
+    const handleMovie = async (data: Movie) => {
+        try {
+            await insertMovie(data);
+            setSuccessMessage('Filme cadastrado com sucesso!');
+            router.push('/movie');
+        } catch (error) {
+            console.error('Erro ao cadastrar o filme:', error);
+        }
     }
 
     return (
@@ -22,55 +29,66 @@ const InsertMovieFunction = () => {
                 <form className="flex flex-col" onSubmit={handleSubmit(handleMovie)}>
                     <label htmlFor="title" className="mb-2 text-[#ffffff]">Título:</label>
                     <input
-                        {...register('title')}
+                        {...register('title', { required: 'Título é obrigatório' })}
                         type="text"
                         name="title"
                         id="title"
                         className="px-3 py-2 border rounded-md mb-4"
-                        placeholder="title"
+                        placeholder="Título"
                     />
+                    {errors.title && <span className="text-red-500">{errors.title.message}</span>}
+
                     <label htmlFor="synopsis" className="mb-2 text-white">Sinopse:</label>
                     <input
-                        {...register('synopsis')}
+                        {...register('synopsis', { required: 'Sinopse é obrigatória' })}
                         type="text"
                         name="synopsis"
                         id="synopsis"
                         className="px-3 py-2 border rounded-md mb-4"
-                        placeholder="synopsis"
+                        placeholder="Sinopse"
                     />
+                    {errors.synopsis && <span className="text-red-500">{errors.synopsis.message}</span>}
+
                     <label htmlFor="img_url" className="mb-2 text-white">URL da imagem:</label>
                     <input
-                        {...register('img_url')}
+                        {...register('img_url', { required: 'URL da imagem é obrigatória' })}
                         type="text"
                         name="img_url"
                         id="img_url"
                         className="px-3 py-2 border rounded-md mb-4"
-                        placeholder="img_url"
+                        placeholder="URL da imagem"
                     />
+                    {errors.img_url && <span className="text-red-500">{errors.img_url.message}</span>}
+
                     <label htmlFor="release" className="mb-2 text-white">Data de lançamento:</label>
                     <input
-                        {...register('release')}
+                        {...register('release', { required: 'Data de lançamento é obrigatória' })}
                         type="text"
                         name="release"
                         id="release"
                         className="px-3 py-2 border rounded-md mb-4"
-                        placeholder="release"
+                        placeholder="Data de lançamento"
                     />
+                    {errors.release && <span className="text-red-500">{errors.release.message}</span>}
+
                     <label htmlFor="genre_id" className="mb-2 text-white">Gênero:</label>
                     <input
-                        {...register('genre_id')}
+                        {...register('genre_id', { required: 'Gênero é obrigatório' })}
                         type="text"
                         name="genre_id"
                         id="genre_id"
                         className="px-3 py-2 border rounded-md mb-4"
-                        placeholder="genre_id"
+                        placeholder="Gênero"
                     />
+                    {errors.genre_id && <span className="text-red-500">{errors.genre_id.message}</span>}
+
                     <input
                         type="submit"
                         value="Criar"
                         className="bg-[#ff5e1e] text-white py-2 px-4 rounded-md hover:bg-[#ff8052] cursor-pointer"
                     />
                 </form>
+                {successMessage && <p className="text-green-500 mt-2">{successMessage}</p>}
                 {movieError && <p className="text-red-500 mt-2">{movieError}</p>}
             </div>
         </div>
