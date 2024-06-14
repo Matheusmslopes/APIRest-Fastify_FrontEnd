@@ -1,4 +1,5 @@
 import AuthProvider from "@/context/AuthContext";
+import MovieProvider from "@/context/MovieContext";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -19,7 +20,9 @@ const RootLayout = ({
     <html lang="pt_br">
         <body className={`bg-slate-100 ${inter.className}`}>
           <AuthProvider>
-            {children}
+            <MovieProvider>
+              {children}
+            </MovieProvider>
           </AuthProvider>
         </body>
         
