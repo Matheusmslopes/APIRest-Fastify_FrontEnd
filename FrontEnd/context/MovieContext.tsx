@@ -26,33 +26,25 @@ export default function MovieProvider({ children }: { children: React.ReactNode 
             const cookies = parseCookies();
             const token = cookies['auth.token'];
             const adminToken = cookies['auth.admin-token'];
-
-            await request<{}>('http://127.0.0.1:3000/movies', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-access-token': token,
-                    'admin-token': adminToken
-                },
-                body: JSON.stringify({ title, synopsis, img_url, release, genre_id }),
-                referrerPolicy: 'no-referrer',
-                cache: 'no-store'
-            });
-
-            // useEffect(() => {
-            //     fetch('http://127.0.0.1:3000/movies', {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //             'x-access-token': token,
-            //             'admin-token': adminToken
-            //         },
-            //         body: JSON.stringify({ title, synopsis, img_url, release, genre_id }),
-            //         referrerPolicy: 'no-referrer',
-            //         cache: 'no-store'
-            //     }).then((res) => console.log(res));
-            // });
-    }
+            
+            try {
+                const response = await request<{}>('http://127.0.0.1:3000/movies', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-access-token': token,
+                        'admin-token': adminToken
+                    },
+                    body: JSON.stringify({ title, synopsis, img_url, release, genre_id }),
+                    referrerPolicy: 'no-referrer',
+                    cache: 'no-store'
+                });
+                console.log('Response:', response); // Log the response for debugging
+            } catch (error) {
+                console.error('Insert Movie Error:', error); // Log any errors
+            }
+        }
+    
 
     return (
         <MovieContext.Provider value={{ insertMovie, movieError }}>
