@@ -39,7 +39,10 @@ export default async function Movies(app, options){
 
         await movies.insertOne(movie);
 
-        return rep.code(201).send();
+        return rep.status(201).json({
+            message: 'Movie created successfully',
+            movie: movie
+        });
     });
 
     app.put('/movies/:id', {
