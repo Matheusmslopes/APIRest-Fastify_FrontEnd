@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 export type SignIdData = {
     username: string;
     password: string;
+    admin: boolean;
 }
 
 type AuthContextType = {
@@ -16,7 +17,8 @@ type AuthContextType = {
 }
 
 type UserAuthentication = {
-    'x-access-token': string
+    'x-access-token': string;
+    'admin-token': string;
 }
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -28,7 +30,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
     async function login({ username, password }: SignIdData) {
         try {
-            const { 'x-access-token': token } = await request<UserAuthentication>('http://127.0.0.1:3000/login', {
+            const { 'x-access-token': token, 'admin-token': adminToken } = await request<UserAuthentication>('http://127.0.0.1:3000/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -44,6 +46,10 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
             }
 
             setCookie(null, 'auth.token', token, {
+                maxAge: 60 * 60 * 1,
+            });
+
+            setCookie(null, 'auth.admin-token', adminToken, {
                 maxAge: 60 * 60 * 1,
             });
 
