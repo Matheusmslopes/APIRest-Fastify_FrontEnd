@@ -5,6 +5,7 @@ import AuthProvider, { AuthContext } from "@/context/AuthContext";
 import MovieProvider from "@/context/MovieContext";
 // import type { Metadata } from "next";
 import "./globals.css";
+import GenreProvider from "@/context/GenreContext";
 
 // export const metadata: Metadata = {
 //   title: "Cabaré",
@@ -53,6 +54,15 @@ const RootLayout = ({
           </MovieProvider>
         </AuthProvider>
       </body>
+        <body className={`bg-slate-100 ${inter.className}`}>
+          <AuthProvider>
+            <MovieProvider>
+              <GenreProvider>
+              {children}
+              </GenreProvider>
+            </MovieProvider>
+          </AuthProvider>
+        </body>
     </html>
   );
 };

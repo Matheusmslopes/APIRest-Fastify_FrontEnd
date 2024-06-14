@@ -4,38 +4,34 @@ import { createContext, useState, useEffect } from 'react';
 import { request } from '../services/request';
 import { parseCookies } from 'nookies';
 
-export type Movie = {
-    title: string;
-    synopsis: string;
-    img_url: string;
-    release: string;
-    genre_id: string;
+export type Genre = {
+   style: string
 }
 
-type MovieContextType = {
-    insertMovie: (data: Movie) => void;
-    movieError: string | null;
+type GenreContextType = {
+    insertGenre: (data: Genre) => void;
+    genreError: string | null;
 }
 
-export const MovieContext = createContext({} as MovieContextType);
+export const GenreContext = createContext({} as GenreContextType);
 
-export default function MovieProvider({ children }: { children: React.ReactNode }) {
-    const [movieError, setMovieError] = useState<string | null>(null);
+export default function GenreProvider({ children }: { children: React.ReactNode }) {
+    const [genreError, setGenreError] = useState<string | null>(null);
 
-    async function insertMovie({ title, synopsis, img_url, release, genre_id }: Movie) {
+    async function insertGenre({ style }: Genre) {
             const cookies = parseCookies();
             const token = cookies['auth.token'];
             const adminToken = cookies['auth.admin-token'];
             
             try {
-                const response = await request<{}>('http://127.0.0.1:3000/movies', {
+                const response = await request<{}>('http://127.0.0.1:3000/genres', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'x-access-token': token,
                         'admin-token': adminToken
                     },
-                    body: JSON.stringify({ title, synopsis, img_url, release, genre_id }),
+                    body: JSON.stringify({ style }),
                     referrerPolicy: 'no-referrer',
                     cache: 'no-store'
                 });
@@ -47,8 +43,8 @@ export default function MovieProvider({ children }: { children: React.ReactNode 
     
 
     return (
-        <MovieContext.Provider value={{ insertMovie, movieError }}>
+        <GenreContext.Provider value={{ insertGenre, genreError }}>
             {children}
-        </MovieContext.Provider>
+        </GenreContext.Provider>
     );
 }
