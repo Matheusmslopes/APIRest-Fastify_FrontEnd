@@ -13,31 +13,32 @@ const Login = () => {
     }
 
     return (
-        <div className="flex justify-center items-center h-screen bg-[#3f3c37]">
-            <div className="w-full max-w-md p-6 bg-[#201F1B] rounded-lg shadow-md">
+        <div className="flex justify-center items-center h-screen bg-[#3f3c37] relative w-full h-screen bg-fixed bg-center bg-cover" style={{ backgroundImage: "url('/bg-hero-section-2.jpg')" }}>
+            <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
+            <div className="w-full max-w-md p-6 bg-black bg-opacity-70 rounded-lg shadow-md z-20">
                 <form className="flex flex-col" onSubmit={handleSubmit(handleLogin)}>
-                    <label htmlFor="username" className="mb-2 text-[#ffffff] ">Usuário:</label>
+                    <label htmlFor="username" className="mb-2 text-[#ffffff]">Usuário:</label>
                     <input
                         {...register('username')}
                         type="text"
                         name='username'
                         id='username'
-                        className="px-3 py-2 border rounded-md mb-4"
+                        className="px-3 py-2 border rounded-md mb-4 text-[#000000] placeholder-[#ccc6ba]::placeholder"
                         placeholder="username"
                     />
-                    <label htmlFor="password" className="mb-2 text-white ">Senha:</label>
+                    <label htmlFor="password" className="mb-2 text-[#ffffff]">Senha:</label>
                     <input
                         {...register('password')}
                         type="password"
                         name='password'
                         id='password'
-                        className="px-3 py-2 border rounded-md mb-4"
+                        className="px-3 py-2 border rounded-md mb-4 text-[#000000] placeholder-[#ccc6ba]::placeholder"
                         placeholder="password"
                     />
                     <input
                         type="submit"
                         value="Acessar"
-                        className="bg-[#ff5e1e] text-white py-2 px-4 rounded-md hover:bg-[#ff8052] cursor-pointer"
+                        className="text-[#ffffff] py-2 px-4 rounded-md bg-[#9e0b0f] cursor-pointer"
                     />
                 </form>
                 {/* Exibe erro de autenticação */}

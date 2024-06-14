@@ -14,6 +14,8 @@ export type SignIdData = {
 type AuthContextType = {
     login: (data: SignIdData) => void;
     authError: string | null;
+    isAuthenticated: boolean;
+    isAdmin: boolean;
 }
 
 type UserAuthentication = {
@@ -25,6 +27,8 @@ export const AuthContext = createContext({} as AuthContextType);
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
     const [authError, setAuthError] = useState<string | null>(null);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
     const router = useRouter();
 
@@ -43,24 +47,28 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
             if (!token) {
                 setAuthError('Autenticação falhou. Por favor, verifique suas credenciais.');
                 return;
+            } else {
+                setCookie(null, 'auth.token', token, {
+                    maxAge: 60 * 60 * 1,
+                });
+                setCookie(null, 'auth.admin-token', adminToken, {
+                    maxAge: 60 * 60 * 1,
+                });
+
+                setIsAuthenticated(true);
+
+                if(adminToken) setIsAdmin(true);
+    
+                router.push('/');
             }
-
-            setCookie(null, 'auth.token', token, {
-                maxAge: 60 * 60 * 1,
-            });
-
-            setCookie(null, 'auth.admin-token', adminToken, {
-                maxAge: 60 * 60 * 1,
-            });
-
-            router.push('/movie');
+            
         } catch (error) {
             setAuthError('Ocorreu um erro ao tentar fazer login.');
         }
     }
 
     return (
-        <AuthContext.Provider value={{ login, authError }}>
+        <AuthContext.Provider value={{ login, authError, isAuthenticated, isAdmin }}>
             {children}
         </AuthContext.Provider>
     );
