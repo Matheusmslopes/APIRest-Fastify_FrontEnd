@@ -1,18 +1,27 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { Genre, GenreContext } from "@/context/GenreContext";
 import Link from 'next/link';
+import { AuthContext } from "@/context/AuthContext";
 
 const InsertGenreFunction = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<Genre>();
     const genreContext = useContext(GenreContext);
     const { insertGenre, genreError } = genreContext;
     const router = useRouter();
+    const { isAuthenticated } = useContext(AuthContext);
     
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    
+    useEffect(() => {
+        if (!isAuthenticated) {
+            router.push('/login');
+            return;
+        }
+    }, [isAuthenticated, router])
 
     const handleGenre = async (data: Genre) => {
         try {
@@ -23,6 +32,9 @@ const InsertGenreFunction = () => {
             console.error('Erro ao cadastrar o gênero:', error);
         }
     }
+
+    if (!isAuthenticated) return <p className="text-center">Você precisa estar logado para ver esta página</p>;
+
 
     return (
         <div className="flex flex-col justify-center items-center h-screen bg-[#3f3c37]">

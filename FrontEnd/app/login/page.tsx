@@ -3,6 +3,7 @@
 import { AuthContext, SignIdData } from "@/context/AuthContext";
 import { useForm } from 'react-hook-form';
 import { useContext } from "react";
+import Link from 'next/link';
 
 const Login = () => {
     const { register, handleSubmit } = useForm<SignIdData>();
@@ -40,6 +41,8 @@ const Login = () => {
                         value="Acessar"
                         className="text-[#ffffff] py-2 px-4 rounded-md bg-[#9e0b0f] cursor-pointer"
                     />
+
+                    <Link href={'/registerUser'} className="inline-block px-4 py-2 rounded bg-[#ff5e1e] font-bold text-[#ffffff] cursor-pointer">Criar Conta</Link>
                 </form>
                 {/* Exibe erro de autenticação */}
                 {authError && <p className="text-red-500 mt-2">{authError}</p>}
