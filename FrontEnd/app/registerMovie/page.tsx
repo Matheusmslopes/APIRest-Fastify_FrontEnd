@@ -1,18 +1,27 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { MovieContext, Movie } from "@/context/MovieContext";
 import Link from 'next/link';
+import { AuthContext } from "@/context/AuthContext";
 
 const InsertMovieFunction = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<Movie>();
     const movieContext = useContext(MovieContext);
     const { insertMovie, movieError } = movieContext;
     const router = useRouter();
+    const { isAuthenticated } = useContext(AuthContext);
     
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            router.push('/login');
+            return;
+        }
+    }, [isAuthenticated, router])
 
     const handleMovie = async (data: Movie) => {
         try {
@@ -23,6 +32,8 @@ const InsertMovieFunction = () => {
             console.error('Erro ao cadastrar o filme:', error);
         }
     }
+
+    if (!isAuthenticated) return <p className="text-center">Você precisa estar logado para ver esta página</p>;
 
     return (
         <div className="flex flex-col justify-center items-center h-screen bg-[#3f3c37]">
