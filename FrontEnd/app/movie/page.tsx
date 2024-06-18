@@ -8,13 +8,13 @@ import Loading from '@/components/loading';
 import NoContent from '@/components/noContent';
 import Image from 'next/image';
 
-interface Genre {
+export interface Genre {
   _id: string;
   style: string;
 }
 
 const Movies = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, isAdmin } = useContext(AuthContext);
   const { updateMovie, deleteMovie } = useContext(MovieContext);
 
   const [isLoading, setLoading] = useState(true);
@@ -102,15 +102,17 @@ const Movies = () => {
             <div className="w-1/2 relative">
               <Image src={movie.img_url} alt={movie.title} layout="fill" objectFit="cover" className="rounded-l" />
             </div>
-            <div className="w-1/2 p-4">
-              <p className="text-2xl font-semibold mb-2 text-[#EDF2F4]">{movie.title}</p>
-              <p className="text-[#EDF2F4]"><span className="font-semibold">Sinopse:</span> {movie.synopsis}</p>
-              <p className="text-[#EDF2F4]"><span className="font-semibold">Lançamento:</span> {movie.release}</p>
-              <p className="text-[#EDF2F4]"><span className="font-semibold">Gênero:</span> {getGenreStyle(movie.genre_id)}</p>
-              <div>
-                <button onClick={() => openModal(movie)} className='text-center text-[#EDF2F4] py-2 px-4 rounded-md bg-[#D90429] hover:bg-[#EF233C] cursor-pointer'>Atualizar Filme</button>
-                <button onClick={() => handleDeleteMovie(movie._id)} className='text-center text-[#EDF2F4] py-2 px-4 rounded-md bg-[#D90429] hover:bg-[#EF233C] cursor-pointer'>Deletar Filme</button>
+            <div className="w-1/2 pl-4 pr-4">
+              <p className="text-3xl font-semibold mb-6 text-center text-[#EDF2F4]">{movie.title}</p>
+              <p className="text-[#EDF2F4] text-sm mb-3"><span className="font-semibold text-xl">Sinopse:</span> {movie.synopsis}</p>
+              <p className="text-[#EDF2F4] text-sm mb-3"><span className="font-semibold text-xl">Lançamento:</span> {movie.release}</p>
+              <p className="text-[#EDF2F4] text-sm mb-3"><span className="font-semibold text-xl">Gênero:</span> {getGenreStyle(movie.genre_id)}</p>
+              {isAuthenticated && isAdmin 
+              ? <div className='flex gap-2'>
+                  <button onClick={() => openModal(movie)} className='text-center text-[#EDF2F4] py-2 px-4 rounded-md bg-[#D90429] hover:bg-[#EF233C] cursor-pointer'>Atualizar</button>
+                  <button onClick={() => handleDeleteMovie(movie._id)} className='text-center text-[#EDF2F4] py-2 px-4 rounded-md bg-[#D90429] hover:bg-[#EF233C] cursor-pointer'>Deletar</button>
               </div>
+              : <div className='flex gap-2'></div>}
             </div>
           </div>
         ))}
