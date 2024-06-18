@@ -3,8 +3,10 @@
 import { createContext, useState, useEffect } from 'react';
 import { request } from '../services/request';
 import { parseCookies } from 'nookies';
+import { useRouter } from 'next/navigation';
 
 export type Movie = {
+    _id: string;
     title: string;
     synopsis: string;
     img_url: string;
@@ -21,6 +23,7 @@ export const MovieContext = createContext({} as MovieContextType);
 
 export default function MovieProvider({ children }: { children: React.ReactNode }) {
     const [movieError, setMovieError] = useState<string | null>(null);
+    const router = useRouter();
 
     async function insertMovie({ title, synopsis, img_url, release, genre_id }: Movie) {
             const cookies = parseCookies();
@@ -39,13 +42,11 @@ export default function MovieProvider({ children }: { children: React.ReactNode 
                     referrerPolicy: 'no-referrer',
                     cache: 'no-store'
                 });
-                console.log('Response:', response); 
             } catch (error) {
                 console.error('Insert Movie Error:', error);
             }
-        }
+    }
     
-
     return (
         <MovieContext.Provider value={{ insertMovie, movieError }}>
             {children}
