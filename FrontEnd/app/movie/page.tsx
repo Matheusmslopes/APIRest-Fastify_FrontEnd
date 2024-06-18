@@ -14,7 +14,7 @@ interface Genre {
 }
 
 const Movies = () => {
-  const { isAuthenticated, isAdmin } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
   const { updateMovie, deleteMovie } = useContext(MovieContext);
 
   const [isLoading, setLoading] = useState(true);
