@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { AuthContext } from "@/context/AuthContext";
 import { useContext } from "react";
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface Movie {
   _id: string;
@@ -32,7 +33,7 @@ const Movies = () => {
       router.push('/login');
       return;
     }
-    
+
     fetch('http://127.0.0.1:3000/movies')
       .then((res) => res.json())
       .then((data) => {
@@ -47,10 +48,10 @@ const Movies = () => {
       });
   }, [isAuthenticated, router]);
 
-  if (!isAuthenticated) return <p className="text-center">Você precisa estar logado para ver esta página</p>;
-  if (isLoading) return <p className="text-center">Loading...</p>;
-  if (!movieList.length) return <p className="text-center">No movies available</p>;
-  if (!genreList.length) return <p className="text-center">No genres available</p>;
+  if (!isAuthenticated) return <p className="text-center text-[#EDF2F4]">Você precisa estar logado para ver esta página</p>;
+  if (isLoading) return <p className="text-center text-[#EDF2F4]">Loading...</p>;
+  if (!movieList.length) return <p className="text-center text-[#EDF2F4]">No movies available</p>;
+  if (!genreList.length) return <p className="text-center text-[#EDF2F4]">No genres available</p>;
 
   const filterMovies = (genre: string) => {
     setSelectedGenre(genre);
@@ -61,35 +62,40 @@ const Movies = () => {
     : movieList.filter(movie => movie.genre_id === selectedGenre);
 
   return (
-    <main className="flex flex-col items-center p-4 bg-[#3f3c37] min-h-screen">
+    <main className="flex flex-col items-center p-4 bg-[#2B2D42] min-h-screen">
       <div id="filters" className="mb-4">
-        <button onClick={() => filterMovies('all')} className="bg-[#ff5e1e] text-white py-2 px-4 m-2 rounded hover:bg-[#ff8052]">Todos</button>
+        <button onClick={() => filterMovies('all')} className="bg-[#D90429] text-[#EDF2F4] py-2 px-4 m-2 rounded hover:bg-[#EF233C] cursor-pointer">Todos</button>
         {genreList.map(genre => (
-          <button 
-            key={genre._id} 
-            onClick={() => filterMovies(genre._id)} 
-            className="bg-[#ff5e1e] text-white py-2 px-4 m-2 rounded hover:bg-[#ff8052]">
+          <button
+            key={genre._id}
+            onClick={() => filterMovies(genre._id)}
+            className="bg-[#D90429] text-[#EDF2F4] py-2 px-4 m-2 rounded hover:bg-[#EF233C] cursor-pointer">
             {genre.style}
           </button>
         ))}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-        {filteredMovies.map(({ _id, title, synopsis }) => (
-          <div key={_id} className="bg-[#201f1b] border border-[#201f1b] rounded p-4 shadow-md">
-            <p className="text-xl font-semibold mb-2 text-[#ffffff]">{title}</p>
-            <p className="text-[#ccc6ba]">Sinopse: {synopsis}</p>
+        {filteredMovies.map(({ _id, title, synopsis, release, genre_id, img_url }) => (
+          <div key={_id} className="bg-black bg-opacity-70 rounded p-4 shadow-2xl flex">
+            <div className="w-1/2 relative">
+              <Image src={img_url} alt={title} layout="fill" objectFit="cover" className="rounded-l" />
+            </div>
+            <div className="w-1/2 p-4">
+              <p className="text-2xl font-semibold mb-2 text-[#EDF2F4]">{title}</p>
+              <p className="text-[#EDF2F4]"><span className="font-semibold">Sinopse:</span> {synopsis}</p>
+              <p className="text-[#EDF2F4]"><span className="font-semibold">Lançamento:</span> {release}</p>
+              <p className="text-[#EDF2F4]"><span className="font-semibold">Gênereo:</span> {genreList.map(genre => genre._id === genre_id ? genre.style : "no genres available")}</p>
+            </div>
           </div>
         ))}
+        {/* {filteredMovies.map(({ _id, title, synopsis, img_url }) => (
+          <div key={_id} className="bg-black bg-opacity-70 rounded p-4 shadow-2xl">
+            <p className="text-xl font-semibold mb-2 text-[#EDF2F4]">{title}</p>
+            <p className="text-[#EDF2F4]">Sinopse: {synopsis}</p>
+            <p className="text-[#EDF2F4]"> {img_url}</p>
+            {/* <Image src={img_url} alt=""></Image> */}
       </div>
-      <div className="flex space-x-4 mt-4">
-        {isAuthenticated && isAdmin && (
-          <>
-            <Link href={'/registerMovie'} className="inline-block px-4 py-2 rounded bg-[#ff5e1e] font-bold text-[#ffffff] cursor-pointer">Cadastrar Filmes</Link>
-            <Link href={'/registerGenre'} className="inline-block px-4 py-2 rounded bg-[#ff5e1e] font-bold text-[#ffffff] cursor-pointer">Cadastrar Gêneros</Link>
-          </>
-        )}
-      </div>
-    </main>
+    </main >
   );
 };
 

@@ -14,7 +14,7 @@ const Login = () => {
     }
 
     return (
-        <div className="flex justify-center items-center h-screen bg-[#3f3c37] relative w-full h-screen bg-fixed bg-center bg-cover" style={{ backgroundImage: "url('/bg-hero-section-2.jpg')" }}>
+        <div className="flex justify-center items-center h-screen bg-[#3f3c37] relative w-full h-screen bg-fixed bg-center bg-cover" style={{ backgroundImage: "url('/bg-hero-section-3.jpg')" }}>
             <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
             <div className="w-full max-w-md p-6 bg-black bg-opacity-70 rounded-lg shadow-md z-20">
                 <form className="flex flex-col" onSubmit={handleSubmit(handleLogin)}>
@@ -39,10 +39,10 @@ const Login = () => {
                     <input
                         type="submit"
                         value="Acessar"
-                        className="text-[#ffffff] py-2 px-4 rounded-md bg-[#9e0b0f] cursor-pointer"
+                        className="text-[#ffffff] py-2 px-4 rounded-md bg-[#D90429] hover:bg-[#EF233C] cursor-pointer"
                     />
-
-                    <Link href={'/registerUser'} className="inline-block px-4 py-2 rounded bg-[#ff5e1e] font-bold text-[#ffffff] cursor-pointer">Criar Conta</Link>
+                    <p className="mt-1 mb-1 text-center py-2 px-4 text-[#D90429]">ou</p>
+                    <Link href={'/registerUser'} className="text-center text-[#ffffff] py-2 px-4 rounded-md bg-[#D90429] hover:bg-[#EF233C] cursor-pointer">Criar Conta</Link>
                 </form>
                 {/* Exibe erro de autenticação */}
                 {authError && <p className="text-red-500 mt-2">{authError}</p>}

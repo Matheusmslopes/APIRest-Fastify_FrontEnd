@@ -33,13 +33,13 @@ const InsertMovieFunction = () => {
         }
     }
 
-    if (!isAuthenticated) return <p className="text-center">Você precisa estar logado para ver esta página</p>;
+    if (!isAuthenticated) return <p className="text-center text-[#EDF2F4]">Você precisa estar logado para ver esta página</p>;
 
     return (
-        <div className="flex flex-col justify-center items-center h-screen bg-[#3f3c37]">
-            <div className="w-full max-w-md p-6 bg-[#201F1B] rounded-lg shadow-md">
+        <div className="flex flex-col justify-center items-center h-screen bg-[#2B2D42]">
+            <div className="w-full max-w-md p-6 bg-black bg-opacity-70 rounded-lg shadow-md">
                 <form className="flex flex-col" onSubmit={handleSubmit(handleMovie)}>
-                    <label htmlFor="title" className="mb-2 text-[#ffffff]">Título:</label>
+                    <label htmlFor="title" className="mb-2 text-[#EDF2F4]">Título:</label>
                     <input
                         {...register('title', { required: 'Título é obrigatório' })}
                         type="text"
@@ -48,9 +48,9 @@ const InsertMovieFunction = () => {
                         className="px-3 py-2 border rounded-md mb-4"
                         placeholder="Título"
                     />
-                    {errors.title && <span className="text-red-500">{errors.title.message}</span>}
+                    {errors.title && <span className="text-[#D90429]">{errors.title.message}</span>}
 
-                    <label htmlFor="synopsis" className="mb-2 text-white">Sinopse:</label>
+                    <label htmlFor="synopsis" className="mb-2 text-[#EDF2F4]">Sinopse:</label>
                     <input
                         {...register('synopsis', { required: 'Sinopse é obrigatória' })}
                         type="text"
@@ -59,9 +59,9 @@ const InsertMovieFunction = () => {
                         className="px-3 py-2 border rounded-md mb-4"
                         placeholder="Sinopse"
                     />
-                    {errors.synopsis && <span className="text-red-500">{errors.synopsis.message}</span>}
+                    {errors.synopsis && <span className="text-[#D90429]">{errors.synopsis.message}</span>}
 
-                    <label htmlFor="img_url" className="mb-2 text-white">URL da imagem:</label>
+                    <label htmlFor="img_url" className="mb-2 text-[#EDF2F4]">URL da imagem:</label>
                     <input
                         {...register('img_url', { required: 'URL da imagem é obrigatória' })}
                         type="text"
@@ -70,9 +70,9 @@ const InsertMovieFunction = () => {
                         className="px-3 py-2 border rounded-md mb-4"
                         placeholder="URL da imagem"
                     />
-                    {errors.img_url && <span className="text-red-500">{errors.img_url.message}</span>}
+                    {errors.img_url && <span className="text-[#D90429]">{errors.img_url.message}</span>}
 
-                    <label htmlFor="release" className="mb-2 text-white">Data de lançamento:</label>
+                    <label htmlFor="release" className="mb-2 text-[#EDF2F4]">Data de lançamento:</label>
                     <input
                         {...register('release', { required: 'Data de lançamento é obrigatória' })}
                         type="text"
@@ -81,9 +81,9 @@ const InsertMovieFunction = () => {
                         className="px-3 py-2 border rounded-md mb-4"
                         placeholder="Data de lançamento"
                     />
-                    {errors.release && <span className="text-red-500">{errors.release.message}</span>}
+                    {errors.release && <span className="text-[#D90429]">{errors.release.message}</span>}
 
-                    <label htmlFor="genre_id" className="mb-2 text-white">Gênero:</label>
+                    <label htmlFor="genre_id" className="mb-2 text-[#EDF2F4]">Gênero:</label>
                     <input
                         {...register('genre_id', { required: 'Gênero é obrigatório' })}
                         type="text"
@@ -92,12 +92,12 @@ const InsertMovieFunction = () => {
                         className="px-3 py-2 border rounded-md mb-4"
                         placeholder="Gênero"
                     />
-                    {errors.genre_id && <span className="text-red-500">{errors.genre_id.message}</span>}
+                    {errors.genre_id && <span className="text-[#D90429]">{errors.genre_id.message}</span>}
 
                     <input
                         type="submit"
                         value="Criar"
-                        className="bg-[#ff5e1e] text-white py-2 px-4 rounded-md hover:bg-[#ff8052] cursor-pointer"
+                        className="bg-[#D90429] text-[#EDF2F4] py-2 px-4 rounded-md hover:bg-[#EF233C] cursor-pointer"
                     />
                 </form>
                 {successMessage && <p className="text-green-500 mt-2">{successMessage}</p>}
@@ -105,7 +105,7 @@ const InsertMovieFunction = () => {
             </div>
             <div className="fixed bottom-4 left-4">
                 <Link href="/movie">
-                    <p className='inline-block px-4 py-2 rounded bg-[#ff5e1e] font-bold text-[#ffffff] cursor-pointer'>Voltar</p>
+                    <p className='inline-block px-4 py-2 rounded bg-[#D90429] hover:bg-[#EF233C] font-bold text-[#EDF2F4] cursor-pointer'>Voltar</p>
                 </Link>
             </div>
         </div>

@@ -33,14 +33,14 @@ const InsertGenreFunction = () => {
         }
     }
 
-    if (!isAuthenticated) return <p className="text-center">Você precisa estar logado para ver esta página</p>;
+    if (!isAuthenticated) return <p className="text-center text-[#EDF2F4]">Você precisa estar logado para ver esta página</p>;
 
 
     return (
-        <div className="flex flex-col justify-center items-center h-screen bg-[#3f3c37]">
-            <div className="w-full max-w-md p-6 bg-[#201F1B] rounded-lg shadow-md">
+        <div className="flex flex-col justify-center items-center h-screen">
+            <div className="w-full max-w-md p-6 bg-black bg-opacity-70 shadow-md rounded-lg shadow-md">
                 <form className="flex flex-col" onSubmit={handleSubmit(handleGenre)}>
-                    <label htmlFor="style" className="mb-2 text-[#ffffff]">Gênero:</label>
+                    <label htmlFor="style" className="mb-2 text-[#EDF2F4]">Gênero:</label>
                     <input
                         {...register('style', { required: 'Gênero é obrigatório' })}
                         type="text"
@@ -49,12 +49,12 @@ const InsertGenreFunction = () => {
                         className="px-3 py-2 border rounded-md mb-4"
                         placeholder="Gênero"
                     />
-                    {errors.style && <span className="text-red-500">{errors.style.message}</span>}
+                    {errors.style && <span className="text-[#D90429]">{errors.style.message}</span>}
 
                     <input
                         type="submit"
                         value="Criar"
-                        className="bg-[#ff5e1e] text-white py-2 px-4 rounded-md hover:bg-[#ff8052] cursor-pointer"
+                        className="bg-[#D90429] text-[#EDF2F4] py-2 px-4 rounded-md hover:bg-[#EF233C] cursor-pointer"
                     />
                 </form>
                 {successMessage && <p className="text-green-500 mt-2">{successMessage}</p>}
@@ -62,7 +62,7 @@ const InsertGenreFunction = () => {
             </div>
             <div className="fixed bottom-4 left-4">
                 <Link href="/movie">
-                    <p className='inline-block px-4 py-2 rounded bg-[#ff5e1e] font-bold text-[#ffffff] cursor-pointer'>Voltar</p>
+                    <p className='inline-block px-4 py-2 rounded bg-[#D90429] hover:bg-[#EF233C] font-bold text-[#EDF2F4] cursor-pointer'>Voltar</p>
                 </Link>
             </div>
         </div>

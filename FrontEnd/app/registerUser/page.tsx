@@ -25,8 +25,8 @@ const InsertUserFunction = () => {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center h-screen bg-[#3f3c37]">
-            <div className="w-full max-w-md p-6 bg-[#201F1B] rounded-lg shadow-md">
+        <div className="flex flex-col justify-center items-center h-screen relative w-full h-screen bg-fixed bg-center bg-cover" style={{ backgroundImage: "url('/bg-hero-section-3.jpg')"}}>
+            <div className="w-full max-w-md p-6 bg-black bg-opacity-70 rounded-lg shadow-md">
                 <form className="flex flex-col" onSubmit={handleSubmit(handleUser)}>
                     <label htmlFor="username" className="mb-2 text-[#ffffff]">Usuário:</label>
                     <input
@@ -64,7 +64,7 @@ const InsertUserFunction = () => {
                     <input
                         type="submit"
                         value="Criar"
-                        className="bg-[#ff5e1e] text-white py-2 px-4 rounded-md hover:bg-[#ff8052] cursor-pointer"
+                        className="bg-[#D90429] hover:bg-[#EF233C] text-white py-2 px-4 rounded-md cursor-pointer"
                     />
                 </form>
                 {successMessage && <p className="text-green-500 mt-2">{successMessage}</p>}
@@ -72,7 +72,7 @@ const InsertUserFunction = () => {
             </div>
             <div className="fixed bottom-4 left-4">
                 <Link href="/movie">
-                    <p className='inline-block px-4 py-2 rounded bg-[#ff5e1e] font-bold text-[#ffffff] cursor-pointer'>Voltar</p>
+                    <p className='inline-block px-4 py-2 rounded bg-[#D90429] hover:bg-[#EF233C] font-bold text-[#ffffff] cursor-pointer'>Voltar</p>
                 </Link>
             </div>
         </div>
