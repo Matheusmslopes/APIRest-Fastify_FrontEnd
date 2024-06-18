@@ -3,7 +3,6 @@
 import { createContext, useState } from 'react';
 import { request } from '../services/request';
 import { parseCookies } from 'nookies';
-import { useRouter } from 'next/navigation';
 
 export type Movie = {
     _id: string;
@@ -15,7 +14,6 @@ export type Movie = {
 }
 
 type MovieContextType = {
-    // getMovie: (data: Movie) => void;
     insertMovie: (data: Movie) => void;
     updateMovie: (data: Movie) => void;
     deleteMovie: (_id: string) => void;
@@ -26,22 +24,6 @@ export const MovieContext = createContext({} as MovieContextType);
 
 export default function MovieProvider({ children }: { children: React.ReactNode }) {
     const [movieError, setMovieError] = useState<string | null>(null);
-    const router = useRouter();
-
-    // async function getMovie({ _id }: Movie) {        
-    //     try {
-    //         return await request<Movie>(`http://127.0.0.1:3000/movies/${_id}`, {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             referrerPolicy: 'no-referrer',
-    //             cache: 'no-store'
-    //         });
-    //     } catch (error) {
-    //         console.error('Insert Movie Error:', error);
-    //     }
-    // }
 
     async function insertMovie({ title, synopsis, img_url, release, genre_id }: Movie) {
             const cookies = parseCookies();
@@ -49,7 +31,7 @@ export default function MovieProvider({ children }: { children: React.ReactNode 
             const adminToken = cookies['auth.admin-token'];
             
             try {
-                const response = await request<{}>('http://127.0.0.1:3000/movies', {
+                await request<{}>('http://127.0.0.1:3000/movies', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -65,11 +47,16 @@ export default function MovieProvider({ children }: { children: React.ReactNode 
             }
     }
 
-    async function updateMovie({ _id, title, synopsis, release, genre_id }: Movie) {
+    async function updateMovie({ _id, title, synopsis, img_url, release, genre_id }: Movie) {
         const cookies = parseCookies();
         const token = cookies['auth.token'];
         const adminToken = cookies['auth.admin-token'];
-        
+        console.log(_id)
+        console.log(title)
+        console.log(synopsis)
+        console.log(img_url)
+        console.log(release)
+        console.log(genre_id)
         try {
             await request<{}>(`http://127.0.0.1:3000/movies/${_id}`, {
                 method: 'PUT',
@@ -78,12 +65,12 @@ export default function MovieProvider({ children }: { children: React.ReactNode 
                     'x-access-token': token,
                     'admin-token': adminToken
                 },
-                body: JSON.stringify({ title, synopsis, release, genre_id }),
+                body: JSON.stringify({ _id, title, synopsis, img_url, release, genre_id }),
                 referrerPolicy: 'no-referrer',
                 cache: 'no-store'
             });
         } catch (error) {
-            console.error('POST Movie Error:', error);
+            console.error('PUT Movie Error:', error);
         }
 }
 
@@ -106,7 +93,7 @@ export default function MovieProvider({ children }: { children: React.ReactNode 
         } catch (error) {
             console.error('DELETE Movie Error:', error);
         }
-}
+    }
     
     return (
         <MovieContext.Provider value={{ insertMovie, updateMovie, deleteMovie, movieError }}>
