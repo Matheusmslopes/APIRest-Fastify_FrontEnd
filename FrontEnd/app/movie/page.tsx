@@ -69,9 +69,9 @@ const Movies = () => {
     ? movieList
     : movieList.filter(movie => movie.genre_id === selectedGenre);
 
-    function handleUpdateMovie(movie: Movie) {
-      updateMovie(movie);
-    }
+  function handleUpdateMovie(movie: Movie) {
+    updateMovie(movie);
+  }
 
   function handleDeleteMovie(_id: string) {
     deleteMovie(_id);
