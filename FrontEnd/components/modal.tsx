@@ -1,8 +1,9 @@
 "use client";
 
-import { useForm, UseFormGetValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { Movie } from "@/context/MovieContext";
+import { Genre } from '@/app/movie/page';
 
 interface ModalProps {
     _id: string;
@@ -13,11 +14,6 @@ interface ModalProps {
     genre_id: string;
     onClose: () => void;
     onUpdate: (data: Movie) => void;
-}
-
-interface Genre {
-    _id: string;
-    style: string;
 }
 
 const Modal = ({ _id, title, synopsis, release, img_url, genre_id, onClose, onUpdate }: ModalProps) => {
@@ -99,7 +95,7 @@ const Modal = ({ _id, title, synopsis, release, img_url, genre_id, onClose, onUp
                                 className="w-full px-3 py-2 border rounded-md"
                             >
                                 {genreList.map(genre => (
-                                    <option key={genre._id} value={genre.style}>
+                                    <option key={genre._id} value={genre._id}>
                                         {genre.style}
                                     </option>
                                 ))}
