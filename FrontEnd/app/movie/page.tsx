@@ -13,17 +13,9 @@ interface Genre {
   style: string;
 }
 
-interface FormData {
-  title: string;
-  synopsis: string;
-  release: string;
-  genre_id: string;
-  img_url: string;
-}
-
 const Movies = () => {
   const { isAuthenticated, isAdmin } = useContext(AuthContext);
-  const { deleteMovie } = useContext(MovieContext);
+  const { updateMovie, deleteMovie } = useContext(MovieContext);
 
   const [isLoading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -68,7 +60,7 @@ const Movies = () => {
     setSelectedGenre(genre);
   };
 
-  const getGenreStyle = (genre_id: string) => {
+  function getGenreStyle(genre_id: string) {
     const genre = genreList.find(genre => genre._id === genre_id);
     return genre ? genre.style : "no genres available";
   };
@@ -76,6 +68,10 @@ const Movies = () => {
   const filteredMovies = selectedGenre === 'all'
     ? movieList
     : movieList.filter(movie => movie.genre_id === selectedGenre);
+
+    function handleUpdateMovie(movie: Movie) {
+      updateMovie(movie);
+    }
 
   function handleDeleteMovie(_id: string) {
     deleteMovie(_id);
@@ -129,6 +125,7 @@ const Movies = () => {
           img_url={selectedMovie.img_url}
           genre_id={selectedMovie.genre_id}
           onClose={closeModal}
+          onUpdate={handleUpdateMovie}
         />
       )}
     </main >
