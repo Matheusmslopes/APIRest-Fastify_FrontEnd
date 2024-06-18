@@ -77,7 +77,9 @@ export default async function Movies(app, options){
             }
         });
 
-        return rep.code(204).send();
+        return rep.status(200).send({
+            message: 'Movie updated successfully',
+            movie: movie});
     });
 
     app.delete('/movies/:id', {
