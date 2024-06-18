@@ -1,6 +1,6 @@
 /**@type{import('fastify').FastifyPluginAsync<>} */
 
-export default async function Movies(app, options){
+export default async function Movies(app, options) {
 
     const movies = app.mongo.db.collection('movies');
 
@@ -10,7 +10,7 @@ export default async function Movies(app, options){
 
     app.get('/movies/:id', async (req, rep) => {
         let id = req.params.id;
-        let movie = await movies.findOne({_id: new app.mongo.ObjectId(id)});
+        let movie = await movies.findOne({ _id: new app.mongo.ObjectId(id) });
 
         return movie;
     });
@@ -50,14 +50,14 @@ export default async function Movies(app, options){
             body: {
                 type: 'object',
                 properties: {
-                    id: { type: 'integer' },
+                    id: { type: 'string' },
                     title: { type: 'string' },
                     synopsis: { type: 'string' },
                     img_url: { type: 'string' },
                     release: { type: 'string' },
                     genre_id: { type: 'string' }
                 },
-                required: ['title', 'synopsis', 'release', 'genre_id']
+                required: ['title', 'synopsis', 'img_url', 'release', 'genre_id']
             }
         },
         config: {
@@ -67,19 +67,23 @@ export default async function Movies(app, options){
     }, async (req, rep) => {
         let id = req.params.id;
         let movie = req.body;
-        await movies.updateOne({ id: new app.mongo.ObjectId(id) }, {
-            $set: {
-                title: movie.title,
-                synopsis: movie.synopsis,
-                img_url: movie.img_url,
-                release: movie.release,
-                genre_id: movie.genre_id
+        await movies.updateOne(
+            { _id: new app.mongo.ObjectId(id) },
+            {
+                $set: {
+                    title: movie.title,
+                    synopsis: movie.synopsis,
+                    img_url: movie.img_url,
+                    release: movie.release,
+                    genre_id: movie.genre_id
+                }
             }
-        });
+        );
 
         return rep.status(200).send({
             message: 'Movie updated successfully',
-            movie: movie});
+            movie: movie
+        });
     });
 
     app.delete('/movies/:id', {
