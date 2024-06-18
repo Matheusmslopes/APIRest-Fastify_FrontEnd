@@ -5,6 +5,7 @@ import { request } from '../services/request';
 import { parseCookies } from 'nookies';
 
 export type Genre = {
+    _id: string;
    style: string
 }
 
