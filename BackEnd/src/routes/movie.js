@@ -91,6 +91,6 @@ export default async function Movies(app, options){
         let id = req.params.id;
         await movies.deleteOne({ _id: new app.mongo.ObjectId(id) });
 
-        return rep.code(204).send();
+        return rep.code(200).send({});
     });
 }
