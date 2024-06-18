@@ -2,8 +2,9 @@
 const nextConfig = {
     images: {
         domains: [
+          '/',
           'm.media-amazon.com',
-          'another-domain.com',
+          'blogger.googleusercontent.com',
           'yet-another-domain.com',
           // Adicione mais domínios conforme necessário
         ],
