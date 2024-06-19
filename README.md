@@ -1,4 +1,4 @@
-# APIRest-Fastify - Plataforma Integrada de Gestão de Filmes, Gêneros e Usuários
+# API_Rest_Fastify - Plataforma Integrada de Gestão de Filmes, Gêneros e Usuários
 
 Este projeto acadêmico consiste em uma aplicação web para gerenciamento de `filmes`, `gêneros` e `usuários`, utilizando uma API REST como backend e uma aplicação frontend para interação com o usuário.
 
