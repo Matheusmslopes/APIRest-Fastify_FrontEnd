@@ -2,7 +2,29 @@
 
 Este projeto acadêmico consiste em uma aplicação web para gerenciamento de `filmes`, `gêneros` e `usuários`, utilizando uma API REST como backend e uma aplicação frontend para interação com o usuário.
 
-Foram lançadas releases à medida do desenvolvimento do projeto. O projeto teve continuação após o prazo de entrega estipulado pelo professor, visando alçancar a excelência. Para fins de correção do projeto acadêmico, utilizar a release 1.1.1.
+## Correção do projeto
+
+Foram lançadas releases à medida do desenvolvimento do projeto. O projeto teve continuação após o prazo de entrega estipulado pelo professor, visando alçancar a excelência. 
+
+Para fins de correção do projeto acadêmico, utilizar a release 1.1.1. Siga os passos abaixo para visualizar a release 1.1.1:
+
+* Faça a instalação do projeto seguindo a seção de `Instalação`
+
+* Traga todas as tags do repositório remoto com o seguinte comando:
+
+```git
+git fetch --tags
+```
+
+> obs: Use 'git tag' para listar todas as tags disponíveis no seu repositório local>
+
+* Visualize a release 1.1.1 com o seguinte comando:
+
+```git
+git checkout 1.1.1
+```
+
+Assim, o projeto estará na release lançada antes do prazo de entrega.
 
 ### Backend
 
