@@ -2,7 +2,7 @@
 
 Este projeto acadêmico consiste em uma aplicação web para gerenciamento de `filmes`, `gêneros` e `usuários`, utilizando uma API REST como backend e uma aplicação frontend para interação com o usuário.
 
-## Correção do projeto
+### Correção do projeto
 
 Foram lançadas releases à medida do desenvolvimento do projeto. O projeto teve continuação após o prazo de entrega estipulado pelo professor, visando alçancar a excelência. 
 
